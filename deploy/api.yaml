@@ -18,10 +18,11 @@ spec:
         - name: tilt-avatar-api
           image: tilt-avatar-api
           ports:
-            - containerPort: 5000
+            - name: http
+              containerPort: 80
           readinessProbe:
             httpGet:
-              port: 5000
+              port: http
               path: '/ready'
 ---
 apiVersion: v1
@@ -34,4 +35,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5000
+      targetPort: http
