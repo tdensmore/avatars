@@ -1,4 +1,4 @@
-FROM node:16-bullseye-slim
+FROM node:18-bullseye-slim
 
 ENV YARN_CACHE_FOLDER=/cache/yarn
 
@@ -12,4 +12,6 @@ RUN --mount=type=cache,target=/cache/yarn \
 # copy app source
 COPY web/ ./
 
+ENV VITE_HOST=0.0.0.0
+ENV VITE_PORT=5173
 CMD ["yarn", "dev"]

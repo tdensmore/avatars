@@ -31,7 +31,7 @@ k8s_yaml('deploy/api.yaml')
 # https://docs.tilt.dev/api.html#api.k8s_resource
 k8s_resource(
     'api',
-    port_forwards='5734:5000',
+    port_forwards='5734:80',
     labels=['backend']
 )
 

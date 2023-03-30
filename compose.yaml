@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./deploy/api.dockerfile
+    ports:
+      - 5734:80
+    x-develop:
+      watch:
+        - path: api/requirements.txt
+          action: rebuild
+        - path: api/
+          target: /app/api/
+          action: sync
+
+  web:
+    build:
+      context: .
+      dockerfile: ./deploy/web.dockerfile
+    ports:
+      - 5735:5173
+    x-develop:
+      watch:
+        - path: web/package.json
+          action: rebuild
+        - path: web/yarn.lock
+          action: rebuild
+        - path: web/
+          target: /app
+          action: sync
