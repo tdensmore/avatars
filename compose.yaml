@@ -1,5 +1,6 @@
 services:
   api:
+    image: avatars-api
     build:
       context: .
       dockerfile: ./deploy/api.dockerfile
@@ -14,6 +15,7 @@ services:
           action: sync
 
   web:
+    image: avatars-web
     build:
       context: .
       dockerfile: ./deploy/web.dockerfile
