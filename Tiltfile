@@ -3,13 +3,13 @@
 # https://docs.tilt.dev/api.html#api.version_settings
 version_settings(constraint='>=0.22.2')
 
-# tilt-avatar-api is the backend (Python/Flask app)
+# avatars-api is the backend (Python/Flask app)
 # live_update syncs changed source code files to the correct place for the Flask dev server
 # and runs pip (python package manager) to update dependencies when changed
 # https://docs.tilt.dev/api.html#api.docker_build
 # https://docs.tilt.dev/live_update_reference.html
 docker_build(
-    'tilt-avatar-api',
+    'avatars-api',
     context='.',
     dockerfile='./deploy/api.dockerfile',
     only=['./api/'],
@@ -36,7 +36,7 @@ k8s_resource(
 )
 
 
-# tilt-avatar-web is the frontend (ReactJS/vite app)
+# avatars-web is the frontend (ReactJS/vite app)
 # live_update syncs changed source files to the correct place for vite to pick up
 # and runs yarn (JS dependency manager) to update dependencies when changed
 # if vite.config.js changes, a full rebuild is performed because it cannot be
@@ -44,7 +44,7 @@ k8s_resource(
 # https://docs.tilt.dev/api.html#api.docker_build
 # https://docs.tilt.dev/live_update_reference.html
 docker_build(
-    'tilt-avatar-web',
+    'avatars-web',
     context='.',
     dockerfile='./deploy/web.dockerfile',
     only=['./web/'],
@@ -84,7 +84,7 @@ tiltfile_path = config.main_path
 # https://docs.tilt.dev/api.html#api.config.tilt_subcommand
 if config.tilt_subcommand == 'up':
     print("""
-    \033[32m\033[32mHello World from tilt-avatars!\033[0m
+    \033[32m\033[32mHello World from the Docker + Tilt Avatars sample app!\033[0m
 
     If this is your first time using Tilt and you'd like some guidance, we've got a tutorial to accompany this project:
     https://docs.tilt.dev/tutorial

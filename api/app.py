@@ -7,7 +7,7 @@ import python_avatars as pa
 
 logging.getLogger('werkzeug').setLevel(logging.WARN)
 
-app = flask.Flask("tilt-avatars-api")
+app = flask.Flask("avatars-api")
 
 part_groups = {
     'facial_features': ['eyebrows', 'eyes', 'mouth', 'skin_color'],

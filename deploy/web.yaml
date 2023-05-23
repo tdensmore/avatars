@@ -3,20 +3,25 @@ kind: Deployment
 metadata:
   name: web
   labels:
-    app: tilt-avatar-web
+    app: avatars-web
+    app.kubernetes.io/name: web
+    app.kubernetes.io/part-of: dockersamples_avatars
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tilt-avatar-web
+      app: avatars-web
   template:
     metadata:
       labels:
-        app: tilt-avatar-web
+        app: avatars-web
+        app.kubernetes.io/name: web
+        app.kubernetes.io/part-of: dockersamples_avatars
     spec:
       containers:
-        - name: tilt-avatar-web
-          image: tilt-avatar-web
+        - name: avatars-web
+          image: avatars-web
+          imagePullPolicy: IfNotPresent
           env:
             - name: VITE_CLIENT_PORT
               value: '5735'
