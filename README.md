@@ -49,3 +49,25 @@ integration runs the images directly from the Docker Engine image store using
 Run `kubectl --context=docker-desktop --namespace=avatars logs -l='app.kubernetes.io/part-of=dockersamples_avatars' from a separate terminal to stream logs.
 
 [cri-dockerd]: https://github.com/Mirantis/cri-dockerd
+
+
+## Simple Compose Watch Test
+
+
+```
+git clone https://github.com/dockersamples/avatars
+cd avatars
+docker compose up -d
+```
+
+## Initiate the Watch
+
+```
+docker compose alpha watch
+```
+
+## Viz
+
+```
+docker compose alpha viz
+```
