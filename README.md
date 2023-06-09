@@ -66,7 +66,7 @@ docker compose up -d
 docker compose alpha watch
 ```
 
-## Viz
+## Generate a graphviz graph from your compose file
 
 ```
 docker compose alpha viz
