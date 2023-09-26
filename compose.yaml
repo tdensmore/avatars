@@ -6,7 +6,7 @@ services:
       dockerfile: ./deploy/api.dockerfile
     ports:
       - 5734:80
-    x-develop:
+    develop:
       watch:
         - path: api/requirements.txt
           action: rebuild

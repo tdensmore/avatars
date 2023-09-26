@@ -12,8 +12,7 @@ tilt:
 	tilt up
 
 compose:
-	docker compose up --build --wait
-	docker compose alpha watch
+	docker compose watch
 
 kubernetes:
 ifeq ($(DD_KUBERNETES),)
