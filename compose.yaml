@@ -21,7 +21,7 @@ services:
       dockerfile: ./deploy/web.dockerfile
     ports:
       - 5735:5173
-    x-develop:
+    develop:
       watch:
         - path: web/package.json
           action: rebuild
