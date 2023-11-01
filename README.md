@@ -63,7 +63,7 @@ docker compose up -d
 ## Initiate the Watch
 
 ```
-docker compose alpha watch
+docker compose watch
 ```
 
 ## Generate a graphviz graph from your compose file
