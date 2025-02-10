@@ -14,13 +14,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        image:
-          - name: avatar.api
-            dockerfile: ./deploy/api.dockerfile
-            tag: latest
-          - name: avatar.web
-            dockerfile: ./deploy/web.dockerfile
-            tag: latest
+        include:
+          - dockerfile: ./deploy/api.dockerfile
+            image_name: avatar.api
+            image_tag: latest
+          - dockerfile: ./deploy/web.dockerfile
+            image_name: avatar.web
+            image_tag: latest
     steps:
       -
         name: Check out code
@@ -48,9 +48,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ${{ matrix.image.dockerfile }}
+          file: ${{ matrix.dockerfile }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}/${{ matrix.image.name }}:${{ matrix.image.tag }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}/${{ matrix.name }}:${{ matrix.tag }}
           labels: ${{ steps.meta.outputs.labels }}
           ## if you want to use a personal access token
           ## to authenticate against another private repository
