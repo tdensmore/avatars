@@ -1,4 +1,4 @@
-name: build using github actions
+name: build using docker build cloud
 
 on:
   push:
