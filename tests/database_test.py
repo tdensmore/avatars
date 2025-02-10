@@ -9,14 +9,6 @@ def postgres_container():
         yield postgres
 
 def test_database_connection(postgres_container):
-    # conn = psycopg.connect(
-    #     dbname=postgres_container.get_container_host_port().split("/")[1],
-    #     #dbname=postgres_container.get_container_host_port().split("/")[1],
-    #     user="postgres",
-    #     password="password",
-    #     host=postgres_container.get_container_host_port().split(":")[0],
-    #     port=postgres_container.get_container_host_port().split(":")[1].split("/")[0]
-    # )
 
     conn = psycopg.connect(
         host=postgres_container.get_container_host_ip(),
@@ -25,7 +17,6 @@ def test_database_connection(postgres_container):
         password=postgres_container.password,
         dbname=postgres_container.dbname
     )
-
 
     cur = conn.cursor()
     cur.execute("SELECT 1")
