@@ -1,4 +1,4 @@
-name: Build - github actions
+name: Build - bake (github actions)
 
 on:
   push:
