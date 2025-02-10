@@ -6,6 +6,14 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./deploy/api.dockerfile
+            image: ghcr.io/username/avatar.api
+          - dockerfile: ./deploy/web.dockerfile
+            image: ghcr.io/username/avatar.web
     steps:
       -
         name: Login to Docker Hub
