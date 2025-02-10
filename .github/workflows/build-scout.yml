@@ -1,4 +1,4 @@
-name: scout
+name: build and analyze using scout
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: build using docker build cloud
 
 on:
   push: # Listen to commits
