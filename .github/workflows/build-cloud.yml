@@ -1,4 +1,4 @@
-name: build using docker build cloud
+name: Build - docker build cloud
 
 on:
   push:

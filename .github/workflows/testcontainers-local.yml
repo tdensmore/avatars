@@ -1,4 +1,4 @@
-name: Run Tests with Testcontainers
+name: Test - testcontainers github actions
 
 on:
   push:

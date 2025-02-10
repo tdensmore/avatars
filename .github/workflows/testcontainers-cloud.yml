@@ -1,4 +1,4 @@
-name: Testcontainers Tests
+name: Test - testcontainers cloud
 
 on:
   push:
