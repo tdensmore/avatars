@@ -17,10 +17,10 @@ jobs:
         image:
           - name: avatar.api
             dockerfile: ./deploy/api.dockerfile
-            image: ghcr.io/username/avatar.api
+            tag: latest
           - name: avatar.web
             dockerfile: ./deploy/web.dockerfile
-            image: ghcr.io/username/avatar.web
+            tag: latest
     steps:
       -
         name: Check out code
@@ -50,7 +50,7 @@ jobs:
           context: .
           file: ${{ matrix.image.dockerfile }}
           push: true
-          tags: latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}/${{ matrix.image.name }}:${{ matrix.image.tag }}
           labels: ${{ steps.meta.outputs.labels }}
           ## if you want to use a personal access token
           ## to authenticate against another private repository
