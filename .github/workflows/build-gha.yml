@@ -34,8 +34,12 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
+          file: ${{ matrix.dockerfile }}
           push: true
-          tags: user/app:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          ## if you want to use a personal access token
           ## to authenticate against another private repository
           ## use a secret named GIT_AUTH_TOKEN
           ##secrets: |
