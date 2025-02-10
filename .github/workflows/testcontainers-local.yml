@@ -16,6 +16,6 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install dependencies
-        run: pip install -r ./api/requirements.txt
+        run: pip install pytest, testcontainers
       - name: Run tests
         run: pytest tests
