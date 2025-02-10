@@ -54,4 +54,4 @@ jobs:
           source: .
           push: true
           set: |
-            *.tags=user/app:latest
+            *.tags=tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
