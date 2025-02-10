@@ -69,8 +69,8 @@ jobs:
         uses: docker/scout-action@v1
         with:
           command: cves
-          image: ${{ steps.meta.outputs.tags }}
-          ##tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
+          ##image: ${{ steps.meta.outputs.tags }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
           sarif-file: sarif.output.json
           summary: true
       - name: Upload CVEs (SARIF) result
