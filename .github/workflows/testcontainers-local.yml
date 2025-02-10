@@ -16,6 +16,6 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install dependencies
-        run: pip install pytest testcontainers psycopg2
+        run: pip install pytest testcontainers psycopg
       - name: Run tests
         run: pytest ./tests

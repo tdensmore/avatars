@@ -1,15 +1,18 @@
 import pytest
+import psycopg
 from testcontainers.postgres import PostgresContainer
-import psycopg2
+
 
 @pytest.fixture(scope="session")
 def postgres_container():
-    with PostgresContainer() as postgres:
+    with PostgresContainer("postgres:latest") as postgres:
+        postgres.start()
         yield postgres
 
 def test_database_connection(postgres_container):
-    conn = psycopg2.connect(
+    conn = psycopg.connect(
         dbname=postgres_container.get_container_host_port().split("/")[1],
+        #dbname=postgres_container.get_container_host_port().split("/")[1],
         user="postgres",
         password="password",
         host=postgres_container.get_container_host_port().split(":")[0],
