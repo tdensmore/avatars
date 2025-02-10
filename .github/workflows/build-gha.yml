@@ -3,6 +3,9 @@ name: build using github actions
 on:
   push:
 
+env:
+  REGISTRY: docker.io
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -51,7 +54,7 @@ jobs:
           file: ${{ matrix.dockerfile }}
           push: true
           ##tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository.name }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
-          tags: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/avatars/${{ matrix.image_name }}:${{ matrix.image_tag }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/avatars/${{ matrix.image_name }}:${{ matrix.image_tag }}
           labels: ${{ steps.meta.outputs.labels }}
           ## if you want to use a personal access token
           ## to authenticate against another private repository
