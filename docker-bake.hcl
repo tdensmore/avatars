@@ -4,10 +4,10 @@ group default {
 
 target api {
   dockerfile = "./deploy/api.dockerfile"
-  tags = ["avatars-api"]
+  tags = ["avatars_api"]
 }
 
 target web {
   dockerfile = "./deploy/web.dockerfile"
-  tags = ["avatars-web"]
+  tags = ["avatars_web"]
 }

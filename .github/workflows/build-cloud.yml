@@ -19,10 +19,10 @@ jobs:
       matrix:
         include:
           - dockerfile: ./deploy/api.dockerfile
-            image_name: avatar_api
+            image_name: avatars_api
             image_tag: latest
           - dockerfile: ./deploy/web.dockerfile
-            image_name: avatar_web
+            image_name: avatars_web
             image_tag: latest
     steps:
       -

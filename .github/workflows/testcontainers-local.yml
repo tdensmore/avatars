@@ -10,12 +10,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # Setup python
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: '3.9'
+      # Install dependencies for python tests
       - name: Install dependencies
         run: pip install pytest testcontainers psycopg
+      # Run python tests (testcontainers)
       - name: Run tests
         run: pytest ./tests
