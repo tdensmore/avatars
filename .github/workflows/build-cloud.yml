@@ -1,38 +1,69 @@
-name: build using docker build cloud
+name: build using github actions
 
 on:
-  push: # Listen to commits
-  release:
-    types:
-      - published # Listen to releases (you can't listen to tags directly)
+  push:
+
+env:
+  REGISTRY: docker.io
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - dockerfile: ./deploy/api.dockerfile
+            image_name: avatar_api
+            image_tag: latest
+          - dockerfile: ./deploy/web.dockerfile
+            image_name: avatar_web
+            image_tag: latest
     steps:
-      - name: Checkout Sources
-        uses: actions/checkout@v4
-
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
+      -
+        name: Check out code
+        uses: actions/checkout@v3
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
-          java-version: 17
-          distribution: 'temurin' # or any other valid distribution
-
-      - name: Build Application
-        run: # Build your application here, e.g.: ./gradlew build
-
-      - name: Build Docker Image
-        uses: Miragon/docker-cloud-build@v2.0.0
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
         with:
-          gcp-project-id: my-project-id
-          gcp-service-account-key: my-service-account-key
-          gcp-cloud-storage-bucket: my-project-id_cloudbuild      # Default value
-          gcp-registry-host: europe-docker.pkg.dev                # Default value
-          gcp-registry-repository: my-repository
-          image-name: my-image
-          image-sources: build/libs/*.jar,Dockerfile
-          image-tag-format: $BRANCH-$SHA-$YYYY$MM$DD-$HH$mm$SS    # Optional
-          image-tag-latest: true                                  # Optional
-          image-tag-branch-latest: true                           # Optional
-          image-tag-additional-tags: tag1,tag2,tag3               # Optional
+          driver: cloud
+          endpoint: "demonstrationorg/default"
+          install: true
+      -
+        name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          ##tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository.name }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
+          
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
+
+          labels: ${{ steps.meta.outputs.labels }}
+          ## if you want to use a personal access token
+          ## to authenticate against another private repository
+          ## use a secret named GIT_AUTH_TOKEN
+          ##secrets: |
+            ##GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
