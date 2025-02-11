@@ -45,25 +45,11 @@ jobs:
           endpoint: "demonstrationorg/default"
           install: true
       -
-        name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      -
+        # Build and push using bake
         name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ${{ matrix.dockerfile }}
-          push: true
-          ##tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository.name }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
-          
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
-
-          labels: ${{ steps.meta.outputs.labels }}
-          ## if you want to use a personal access token
-          ## to authenticate against another private repository
-          ## use a secret named GIT_AUTH_TOKEN
-          ##secrets: |
-            ##GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
+          push: true
