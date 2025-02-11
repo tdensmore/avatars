@@ -47,4 +47,6 @@ jobs:
           context: .
           file: ${{ matrix.dockerfile }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image_name }}:${{ matrix.image_tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
